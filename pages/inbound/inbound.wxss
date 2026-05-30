@@ -1,0 +1,15 @@
+.small {
+  flex: 0 0 160rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+}
+
+.edit-btn {
+  margin-top: 18rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  border-radius: 999rpx;
+  color: #ff0036;
+  background: #fff0f3;
+  font-size: 24rpx;
+}

@@ -1,0 +1,49 @@
+<view class="container">
+  <view class="hero-card">
+    <view class="hero-title">库存管理</view>
+    <view class="hero-subtitle">商品档案、预警和供应商货款余额</view>
+  </view>
+
+  <view class="section">
+    <view class="section-title"><view class="title-left">{{form.id ? '编辑商品' : '添加商品'}}</view></view>
+    <view class="form-row"><view class="label">商品名称</view><input class="input" placeholder="请输入商品名称" value="{{form.name}}" data-field="name" bindinput="onFormInput" /></view>
+    <view class="form-row"><view class="label">商品规格</view><input class="input" placeholder="请输入商品规格" value="{{form.spec}}" data-field="spec" bindinput="onFormInput" /></view>
+    <view class="form-row"><view class="label">商品单价</view><input class="input" type="digit" placeholder="请输入单价" value="{{form.price}}" data-field="price" bindinput="onFormInput" /></view>
+    <view class="form-row"><view class="label">在库数量</view><input class="input" type="number" placeholder="请输入数量" value="{{form.quantity}}" data-field="quantity" bindinput="onFormInput" /></view>
+    <view class="form-row"><view class="label">供应商</view><picker range="{{supplierOptions}}" value="{{supplierIndex}}" bindchange="onSupplierChange"><view class="picker-value">{{form.supplier || '请选择供应商'}}</view></picker></view>
+    <view class="form-row"><view class="label">预警数量</view><input class="input" type="number" placeholder="请输入预警数量" value="{{form.warningQuantity}}" data-field="warningQuantity" bindinput="onFormInput" /></view>
+    <view class="form-row"><view class="label">备注</view><textarea class="textarea" placeholder="请输入备注" value="{{form.remark}}" data-field="remark" bindinput="onFormInput" /></view>
+    <view class="btn-row"><button class="tm-btn" bindtap="saveInventory">保存商品</button><button class="tm-btn ghost-btn" bindtap="resetForm">清空</button></view>
+  </view>
+
+  <view class="section">
+    <view class="section-title"><view class="title-left">商品列表</view><button class="badge" bindtap="toggleSelectAll">{{allSelected ? '取消全选' : '一键全选'}}</button></view>
+    <view wx:if="{{inventory.length === 0}}" class="empty">暂无商品，请先添加库存</view>
+    <view class="record-card" wx:for="{{inventory}}" wx:key="id">
+      <view class="record-head">
+        <checkbox checked="{{selectedMap[item.id]}}" data-id="{{item.id}}" bindtap="toggleSelect" />
+        <view class="record-title">{{item.name}}</view>
+        <view class="badge {{item.quantity <= item.warningQuantity ? 'danger' : ''}}">库存 {{item.quantity}}</view>
+      </view>
+      <view class="record-line">规格：{{item.spec}}｜单价：¥{{item.price}}｜金额：¥{{item.amount}}</view>
+      <view class="record-line">供应商：{{item.supplier}}｜预警数量：{{item.warningQuantity}}</view>
+      <view class="record-meta">备注：{{item.remark || '无'}}</view>
+      <button class="edit-btn" data-id="{{item.id}}" bindtap="editInventory">重新编辑</button>
+    </view>
+  </view>
+
+  <view class="section supplier-section">
+    <view class="section-title"><view class="title-left">供应商货款余额</view><button class="badge" bindtap="toggleBalanceSelectAll">{{allBalanceSelected ? '取消全选' : '一键全选'}}</button></view>
+    <view class="form-row"><view class="label">供应商选择</view><picker range="{{supplierOptions}}" value="{{balanceSupplierIndex}}" bindchange="onBalanceSupplierChange"><view class="picker-value">{{balanceForm.supplier || '请选择供应商'}}</view></picker></view>
+    <view class="form-row"><view class="label">货款余额</view><input class="input" type="digit" placeholder="请输入货款余额" value="{{balanceForm.balance}}" data-field="balance" bindinput="onBalanceInput" /></view>
+    <view class="form-row"><view class="label">备注</view><textarea class="textarea" placeholder="请输入备注" value="{{balanceForm.remark}}" data-field="remark" bindinput="onBalanceInput" /></view>
+    <view class="btn-row"><button class="tm-btn" bindtap="saveBalance">保存余额</button><button class="tm-btn ghost-btn" bindtap="resetBalanceForm">清空</button></view>
+    <view class="card-list">
+      <view class="record-card" wx:for="{{supplierBalances}}" wx:key="id">
+        <view class="record-head"><checkbox checked="{{selectedBalanceMap[item.id]}}" data-id="{{item.id}}" bindtap="toggleBalanceSelect" /><view class="record-title">{{item.supplier}}</view><view class="badge">¥{{item.balance}}</view></view>
+        <view class="record-meta">备注：{{item.remark || '无'}}</view>
+        <button class="edit-btn" data-id="{{item.id}}" bindtap="editBalance">重新编辑</button>
+      </view>
+    </view>
+  </view>
+</view>
