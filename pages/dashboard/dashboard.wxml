@@ -1,0 +1,75 @@
+<view class="container">
+  <view class="hero-card dashboard-banner">
+    <view class="hero-title">拾纷电商管理系统</view>
+    <view class="hero-subtitle">天猫风电商仓库经营驾驶舱</view>
+  </view>
+
+  <view class="stats-grid">
+    <view class="stat-card highlight">
+      <view class="stat-label">代发总成本</view>
+      <view class="stat-value">¥{{stats.consignmentCost}}</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-label">库存数量</view>
+      <view class="stat-value">{{stats.inventoryQuantity}}</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-label">库存总金额</view>
+      <view class="stat-value">¥{{stats.inventoryAmount}}</view>
+    </view>
+    <view class="stat-card warning">
+      <view class="stat-label">库存预警</view>
+      <view class="stat-value">{{stats.warningCount}}</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-label">供应商货款余额</view>
+      <view class="stat-value">¥{{stats.supplierBalance}}</view>
+    </view>
+    <view class="stat-card">
+      <view class="stat-label">退货入库记录</view>
+      <view class="stat-value">{{stats.returnCount}}</view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title"><view class="title-left">今日出入库</view></view>
+    <view class="flow-row">
+      <view class="flow-card out">
+        <view class="flow-name">今日出库</view>
+        <view class="flow-num">{{stats.todayOutboundQuantity}}</view>
+        <view class="flow-money">¥{{stats.todayOutboundAmount}}</view>
+      </view>
+      <view class="flow-card in">
+        <view class="flow-name">今日入库</view>
+        <view class="flow-num">{{stats.todayInboundQuantity}}</view>
+        <view class="flow-money">¥{{stats.todayInboundAmount}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-title"><view class="title-left">本月累计出入库数据</view></view>
+    <view class="month-summary">
+      <view>
+        <view class="month-label">本月累计数量</view>
+        <view class="month-value">{{stats.monthlyTotalQuantity}}</view>
+      </view>
+      <view>
+        <view class="month-label">本月累计金额</view>
+        <view class="month-value">¥{{stats.monthlyTotalAmount}}</view>
+      </view>
+    </view>
+    <view class="flow-row mini">
+      <view class="flow-card in">
+        <view class="flow-name">本月入库</view>
+        <view class="flow-num">{{stats.monthlyInboundQuantity}}</view>
+        <view class="flow-money">¥{{stats.monthlyInboundAmount}}</view>
+      </view>
+      <view class="flow-card out">
+        <view class="flow-name">本月出库</view>
+        <view class="flow-num">{{stats.monthlyOutboundQuantity}}</view>
+        <view class="flow-money">¥{{stats.monthlyOutboundAmount}}</view>
+      </view>
+    </view>
+  </view>
+</view>

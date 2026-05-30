@@ -1,0 +1,27 @@
+<view class="container">
+  <view class="hero-card"><view class="hero-title">入库管理</view><view class="hero-subtitle">按日期筛选，快速登记采购入库</view></view>
+  <view class="section">
+    <view class="section-title"><view class="title-left">{{form.id ? '编辑入库信息' : '添加入库信息'}}</view></view>
+    <view class="form-row"><view class="label">入库日期</view><picker mode="date" value="{{form.date}}" bindchange="onDateChange"><view class="picker-value">{{form.date || '请选择入库日期'}}</view></picker></view>
+    <view class="form-row"><view class="label">库存商品筛选</view><picker range="{{inventoryLabels}}" value="{{inventoryIndex}}" bindchange="onInventoryPick"><view class="picker-value">{{selectedInventoryLabel || '从库存内已有商品中选择'}}</view></picker></view>
+    <view class="form-row"><view class="label">商品名称</view><input class="input" value="{{form.name}}" data-field="name" bindinput="onInput" placeholder="商品名称" /></view>
+    <view class="form-row"><view class="label">商品规格</view><input class="input" value="{{form.spec}}" data-field="spec" bindinput="onInput" placeholder="商品规格" /></view>
+    <view class="form-row"><view class="label">商品单价</view><input class="input" type="digit" value="{{form.price}}" data-field="price" bindinput="onInput" placeholder="商品单价" /></view>
+    <view class="form-row"><view class="label">商品数量</view><input class="input" type="number" value="{{form.quantity}}" data-field="quantity" bindinput="onInput" placeholder="商品数量" /></view>
+    <view class="form-row"><view class="label">供应商</view><input class="input" value="{{form.supplier}}" data-field="supplier" bindinput="onInput" placeholder="供应商" /></view>
+    <view class="form-row"><view class="label">备注</view><textarea class="textarea" value="{{form.remark}}" data-field="remark" bindinput="onInput" placeholder="备注" /></view>
+    <view class="btn-row"><button class="tm-btn" bindtap="save">保存入库</button><button class="tm-btn ghost-btn" bindtap="resetForm">清空</button></view>
+  </view>
+  <view class="section">
+    <view class="section-title"><view class="title-left">入库记录</view><button class="badge" bindtap="toggleSelectAll">{{allSelected ? '取消全选' : '一键全选'}}</button></view>
+    <view class="filter-bar"><picker mode="date" value="{{filterDate}}" bindchange="onFilterDate"><view class="picker-value">{{filterDate || '按日期筛选'}}</view></picker><button class="tm-btn ghost-btn small" bindtap="clearFilter">清除</button></view>
+    <view wx:if="{{records.length === 0}}" class="empty">暂无入库记录</view>
+    <view class="record-card" wx:for="{{records}}" wx:key="id">
+      <view class="record-head"><checkbox checked="{{selectedMap[item.id]}}" data-id="{{item.id}}" bindtap="toggleSelect" /><view class="record-title">{{item.name}}</view><view class="badge">{{item.date}}</view></view>
+      <view class="record-line">规格：{{item.spec}}｜数量：{{item.quantity}}｜单价：¥{{item.price}}</view>
+      <view class="record-line">金额：¥{{item.total}}｜供应商：{{item.supplier}}</view>
+      <view class="record-meta">备注：{{item.remark || '无'}}</view>
+      <button class="edit-btn" data-id="{{item.id}}" bindtap="edit">重新编辑</button>
+    </view>
+  </view>
+</view>

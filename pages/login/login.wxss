@@ -1,0 +1,61 @@
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48rpx;
+  box-sizing: border-box;
+  background: radial-gradient(circle at 20% 20%, #ffd1da 0, transparent 32%), linear-gradient(160deg, #ff0036 0%, #ff7a00 100%);
+}
+
+.login-panel {
+  width: 100%;
+  padding: 58rpx 42rpx;
+  border-radius: 38rpx;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 32rpx 70rpx rgba(133, 0, 29, 0.25);
+  text-align: center;
+}
+
+.brand-dot {
+  width: 88rpx;
+  height: 88rpx;
+  margin: 0 auto 24rpx;
+  border-radius: 24rpx;
+  background: linear-gradient(135deg, #ff0036, #ff7a00);
+  box-shadow: 0 14rpx 28rpx rgba(255, 0, 54, 0.28);
+}
+
+.login-title {
+  font-size: 42rpx;
+  font-weight: 900;
+  color: #222;
+}
+
+.login-tip {
+  margin: 16rpx 0 42rpx;
+  color: #777;
+  font-size: 26rpx;
+}
+
+.code-input {
+  height: 92rpx;
+  line-height: 92rpx;
+  padding: 0 28rpx;
+  border-radius: 999rpx;
+  background: #fff4f6;
+  border: 1rpx solid #ffd2dc;
+  font-size: 30rpx;
+  text-align: center;
+}
+
+.login-btn {
+  margin-top: 34rpx;
+  height: 92rpx;
+  line-height: 92rpx;
+  border-radius: 999rpx;
+  color: #fff;
+  background: linear-gradient(135deg, #ff0036, #ff6500);
+  font-size: 30rpx;
+  font-weight: 800;
+}

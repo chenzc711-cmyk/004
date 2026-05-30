@@ -1,0 +1,45 @@
+<view class="container">
+  <view class="hero-card"><view class="hero-title">出库管理</view><view class="hero-subtitle">销售/领用出库与成本登记</view></view>
+  <view class="section">
+    <view class="section-title"><view class="title-left">{{form.id ? '编辑出库信息' : '添加出库信息'}}</view></view>
+    <view class="form-row"><view class="label">出库日期</view><picker mode="date" value="{{form.date}}" bindchange="onDateChange"><view class="picker-value">{{form.date || '请选择出库日期'}}</view></picker></view>
+    <view class="form-row"><view class="label">库存商品筛选</view><picker range="{{inventoryLabels}}" value="{{inventoryIndex}}" bindchange="onInventoryPick"><view class="picker-value">{{selectedInventoryLabel || '从库存内已有商品中选择'}}</view></picker></view>
+    <view class="form-row"><view class="label">商品名称</view><input class="input" value="{{form.name}}" data-field="name" bindinput="onInput" placeholder="商品名称" /></view>
+    <view class="form-row"><view class="label">商品规格</view><input class="input" value="{{form.spec}}" data-field="spec" bindinput="onInput" placeholder="商品规格" /></view>
+    <view class="form-row"><view class="label">数量</view><input class="input" type="number" value="{{form.quantity}}" data-field="quantity" bindinput="onInput" placeholder="数量" /></view>
+    <view class="form-row"><view class="label">单价</view><input class="input" type="digit" value="{{form.price}}" data-field="price" bindinput="onInput" placeholder="单价" /></view>
+    <view class="form-row"><view class="label">总金额</view><input class="input" type="digit" value="{{form.total}}" data-field="total" bindinput="onInput" placeholder="总金额，可自动计算后调整" /></view>
+    <view class="form-row"><view class="label">用途/备注</view><textarea class="textarea" value="{{form.remark}}" data-field="remark" bindinput="onInput" placeholder="用途/备注" /></view>
+    <view class="btn-row"><button class="tm-btn" bindtap="save">保存出库</button><button class="tm-btn ghost-btn" bindtap="resetForm">清空</button></view>
+  </view>
+  <view class="section">
+    <view class="section-title"><view class="title-left">出库记录</view><button class="badge" bindtap="toggleSelectAll">{{allSelected ? '取消全选' : '一键全选'}}</button></view>
+    <view class="filter-bar"><picker mode="date" value="{{filterDate}}" bindchange="onFilterDate"><view class="picker-value">{{filterDate || '按日期筛选'}}</view></picker><button class="tm-btn ghost-btn small" bindtap="clearFilter">清除</button></view>
+    <view wx:if="{{records.length === 0}}" class="empty">暂无出库记录</view>
+    <view class="record-card" wx:for="{{records}}" wx:key="id">
+      <view class="record-head"><checkbox checked="{{selectedMap[item.id]}}" data-id="{{item.id}}" bindtap="toggleSelect" /><view class="record-title">{{item.name}}</view><view class="badge">{{item.date}}</view></view>
+      <view class="record-line">规格：{{item.spec}}｜数量：{{item.quantity}}｜单价：¥{{item.price}}</view>
+      <view class="record-line">总金额：¥{{item.total}}</view>
+      <view class="record-meta">用途/备注：{{item.remark || '无'}}</view>
+      <button class="edit-btn" data-id="{{item.id}}" bindtap="edit">重新编辑</button>
+    </view>
+  </view>
+
+  <view class="section cost-section">
+    <view class="section-title"><view class="title-left">成本登记</view></view>
+    <view class="form-row"><view class="label">支出时间</view><picker mode="date" value="{{costForm.date}}" bindchange="onCostDateChange"><view class="picker-value">{{costForm.date || '请选择支出时间'}}</view></picker></view>
+    <view class="form-row"><view class="label">支出金额</view><input class="input" type="digit" value="{{costForm.amount}}" data-field="amount" bindinput="onCostInput" placeholder="支出金额" /></view>
+    <view class="form-row"><view class="label">支出用途</view><input class="input" value="{{costForm.purpose}}" data-field="purpose" bindinput="onCostInput" placeholder="支出用途" /></view>
+    <view class="form-row"><view class="label">支出分类</view><picker range="{{costCategories}}" value="{{costCategoryIndex}}" bindchange="onCostCategoryChange"><view class="picker-value">{{costForm.category || '请选择支出分类'}}</view></picker></view>
+    <view class="form-row"><view class="label">备注</view><textarea class="textarea" value="{{costForm.remark}}" data-field="remark" bindinput="onCostInput" placeholder="备注" /></view>
+    <view class="btn-row"><button class="tm-btn" bindtap="saveCost">保存成本</button><button class="tm-btn ghost-btn" bindtap="resetCostForm">清空</button></view>
+    <view class="section-title cost-title"><view class="title-left">成本记录</view><button class="badge" bindtap="toggleCostSelectAll">{{allCostSelected ? '取消全选' : '一键全选'}}</button></view>
+    <view wx:if="{{costs.length === 0}}" class="empty">暂无成本记录</view>
+    <view class="record-card" wx:for="{{costs}}" wx:key="id">
+      <view class="record-head"><checkbox checked="{{selectedCostMap[item.id]}}" data-id="{{item.id}}" bindtap="toggleCostSelect" /><view class="record-title">{{item.purpose}}</view><view class="badge">{{item.category}}</view></view>
+      <view class="record-line">支出时间：{{item.date}}｜支出金额：¥{{item.amount}}</view>
+      <view class="record-meta">备注：{{item.remark || '无'}}</view>
+      <button class="edit-btn" data-id="{{item.id}}" bindtap="editCost">重新编辑</button>
+    </view>
+  </view>
+</view>
